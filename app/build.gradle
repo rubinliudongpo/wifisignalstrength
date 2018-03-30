@@ -1,0 +1,81 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "cn.liudp.wifisignalstrength"
+        minSdkVersion 19
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+//    signingConfigs {
+//        debug {
+//            storeFile file("../cn.liudp.jks")
+//            storePassword STORE_PASSWORD
+//            keyAlias KEYALIAS
+//            keyPassword KEY_PASSWORD
+//        }
+//        release {
+//            storeFile file("../cn.liudp.jks")
+//            storePassword STORE_PASSWORD
+//            keyAlias KEYALIAS
+//            keyPassword KEY_PASSWORD
+//        }
+//    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+        }
+    }
+    lintOptions {
+        disable 'InvalidPackage', 'MissingTranslation', 'ExtraTranslation'
+        abortOnError false
+
+    }
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation 'com.facebook.stetho:stetho:1.5.0'
+    implementation 'com.github.xcc3641:watcher:1.0'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    //rx生命周期
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
+    //fragment
+    implementation 'me.yokeyword:fragmentation:1.2.4'
+    //loading
+    implementation 'com.github.zzz40500:android-shapeLoadingView:1.0.3.2'
+    implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    //顶部提示
+    implementation 'com.tapadoo.android:alerter:2.0.1'
+    //RxTools
+    implementation 'com.github.vondear:RxTools:v1.7.6.8'
+    //Android util
+    implementation 'com.blankj:utilcode:1.13.5'
+    //banner
+    implementation 'cn.bingoogolapple:bga-banner:2.2.4@aar'
+    //bottom bar
+    implementation 'com.yinglan.alphatabs:library:1.0.8'
+    //recycler view
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
+
+}

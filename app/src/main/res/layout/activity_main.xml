@@ -1,0 +1,43 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#888" />
+    <com.yinglan.alphatabs.AlphaTabsIndicator
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:orientation="horizontal">
+        <com.yinglan.alphatabs.AlphaTabView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="5dp"
+            app:tabIconNormal="@drawable/tab_home"
+            app:tabIconSelected="@drawable/tab_home_selected"
+            app:tabText="@string/home"
+            app:tabTextSize="13sp"
+            app:textColorNormal="#999999"
+            app:textColorSelected="#46c01b" />
+        <com.yinglan.alphatabs.AlphaTabView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="5dp"
+            app:tabIconNormal="@drawable/tab_me"
+            app:tabIconSelected="@drawable/tab_me_selected"
+            app:tabText="@string/me"
+            app:tabTextSize="13sp"
+            app:textColorNormal="#999999"
+            app:textColorSelected="#46c01b" />
+    </com.yinglan.alphatabs.AlphaTabsIndicator>
+</LinearLayout>

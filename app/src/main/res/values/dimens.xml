@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="card_view_margin">8dp</dimen>
+    <dimen name="spacing_small">3dp</dimen>
+    <dimen name="spacing_xsmall">2dp</dimen>
+    <dimen name="spacing_medium">4dp</dimen>
+    <dimen name="spacing_middle">10dp</dimen>
+    <dimen name="spacing_large">16dp</dimen>
+    <dimen name="spacing_mlarge">20dp</dimen>
+    <dimen name="spacing_xlarge">32dp</dimen>
+    <dimen name="spacing_xxlarge">40dp</dimen>
+    <dimen name="list_view_item_horizontal_spacer">4dp</dimen>
+    <dimen name="list_view_item_horizontal_tab">24dp</dimen>
+    <dimen name="grid_expected_size">120dp</dimen>
+    <dimen name="status_bar_height">0dp</dimen>
+</resources>

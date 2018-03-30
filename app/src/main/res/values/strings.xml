@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">WiFi Helper</string>
+    <string name="default_loading_message">Loading&#8230;</string>
+    <string name="permission_rationale_message">You have rejected us to apply for authorization, please agree to authorization, otherwise the function can\'t be used normally!</string>
+    <string name="permission_denied_forever_message">We need some of the permissions you rejected or the system failed to apply failed, please manually set to the page authorize, otherwise the function can\'t be used normally!</string>
+    <string name="me">Me</string>
+    <string name="home">Home</string>
+    <string name="can_not_find_any_aps">Sorry, it seems no any Access Points nearby</string>
+</resources>
