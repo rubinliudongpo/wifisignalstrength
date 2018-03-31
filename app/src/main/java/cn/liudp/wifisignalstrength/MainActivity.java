@@ -1,5 +1,6 @@
 package cn.liudp.wifisignalstrength;
 
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -43,7 +44,6 @@ public class MainActivity extends BaseActivity{
         mBottomBar.setViewPager(mViewPager);
         mBottomBar.getTabView(0).showNumber(6);
         mBottomBar.getTabView(1).showPoint();
-
     }
 
     private class MainAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener {
@@ -104,6 +104,5 @@ public class MainActivity extends BaseActivity{
                 .compose(bindToLifecycle())
                 .subscribe(aLong -> count = 1);
         }
-
     }
 }
