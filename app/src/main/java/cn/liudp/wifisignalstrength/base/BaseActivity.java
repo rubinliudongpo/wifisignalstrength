@@ -62,6 +62,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements ISuppo
         initSystemBar(mContext);
         mUnBinder = ButterKnife.bind(this);
         initEventAndData(savedInstanceState);
+        // setup Action Bar for tabs
     }
 
     @Override
