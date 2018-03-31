@@ -28,10 +28,10 @@ public class AboutFragment extends BaseFragment implements SwipeRefreshLayout.On
 
 //    @BindView(R.id.swipe_refresh)
 //    SwipeRefreshLayout mRefreshLayout;
-//    @BindView(R.id.web_appbar)
-//    AppBarLayout mWebAppbar;
-//    @BindView(R.id.web_progress_bar)
-//    ProgressBar mWebProgressBar;
+    @BindView(R.id.web_appbar)
+    AppBarLayout mWebAppbar;
+    @BindView(R.id.web_progress_bar)
+    ProgressBar mWebProgressBar;
     @BindView(R.id.web_view)
     WebView mWebView;
     private WebContract.IWebPresenter mWebPresenter;
@@ -89,18 +89,18 @@ public class AboutFragment extends BaseFragment implements SwipeRefreshLayout.On
     }
 
     private class MyWebChrome extends WebChromeClient {
-//        @Override
-//        public void onProgressChanged(WebView view, int newProgress) {
-//            mWebProgressBar.setVisibility(View.VISIBLE);
-//            mWebProgressBar.setProgress(newProgress);
-//        }
+        @Override
+        public void onProgressChanged(WebView view, int newProgress) {
+            mWebProgressBar.setVisibility(View.VISIBLE);
+            mWebProgressBar.setProgress(newProgress);
+        }
     }
 
     private class MyWebClient extends WebViewClient {
-//        @Override
-//        public void onPageFinished(WebView view, String url) {
-//            mWebProgressBar.setVisibility(View.GONE);
-//        }
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            mWebProgressBar.setVisibility(View.GONE);
+        }
     }
 
     @Override
