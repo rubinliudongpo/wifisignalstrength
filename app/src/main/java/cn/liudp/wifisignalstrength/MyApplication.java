@@ -8,6 +8,7 @@ import com.blankj.utilcode.util.Utils;
 import com.facebook.stetho.Stetho;
 import com.hugo.watcher.Watcher;
 import com.blankj.utilcode.util.NetworkUtils;
+import com.squareup.leakcanary.LeakCanary;
 
 //import im.fir.sdk.FIR;
 
@@ -47,6 +48,17 @@ public class MyApplication extends Application {
         return mAppCacheDir;
     }
 
+
+    private void initLeakCanary() {
+        // 内存泄露检查工具
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -54,6 +66,7 @@ public class MyApplication extends Application {
         mApplication = this;
 //        CrashHandler.init(new CrashHandler(application));
         Utils.init(this);
+        initLeakCanary();
         if (!BuildConfig.DEBUG) {
             // App crash analysis and auto-detect upgrading
 //            FIR.init(this);
