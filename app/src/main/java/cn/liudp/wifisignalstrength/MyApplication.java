@@ -9,6 +9,7 @@ import com.facebook.stetho.Stetho;
 import com.hugo.watcher.Watcher;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.squareup.leakcanary.LeakCanary;
+import cn.liudp.wifisignalstrength.base.BaseApplication;
 
 //import im.fir.sdk.FIR;
 
@@ -16,7 +17,7 @@ import com.squareup.leakcanary.LeakCanary;
  * @author dongpoliu on 2018-03-15.
  */
 
-public class MyApplication extends Application {
+public class MyApplication extends BaseApplication {
 
     private static MyApplication mApplication;
     private static String mAppCacheDir;
@@ -76,38 +77,5 @@ public class MyApplication extends Application {
             // debug bridge for Android applications, enabling the powerful Chrome Developer Tools and much more.
             Stetho.initializeWithDefaults(this);
         }
-        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
-            @Override
-            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-            }
-
-            @Override
-            public void onActivityStarted(Activity activity) {
-                mActivityCount++;
-//                AppLog.d(getClass().getName(), "onActivityStarted " + mActivityCount);
-            }
-
-            @Override
-            public void onActivityResumed(Activity activity) {
-            }
-
-            @Override
-            public void onActivityPaused(Activity activity) {
-            }
-
-            @Override
-            public void onActivityStopped(Activity activity) {
-                mActivityCount--;
-//                AppLog.d(getClass().getName(), "onActivityStarted " + mActivityCount);
-            }
-
-            @Override
-            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-            }
-
-            @Override
-            public void onActivityDestroyed(Activity activity) {
-            }
-        });
     }
 }
