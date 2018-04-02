@@ -13,4 +13,6 @@
     <dimen name="list_view_item_horizontal_tab">24dp</dimen>
     <dimen name="grid_expected_size">120dp</dimen>
     <dimen name="status_bar_height">0dp</dimen>
+    <dimen name="item_size">192dp</dimen>
+    <dimen name="sticker_item_size">96dp</dimen>
 </resources>

@@ -6,4 +6,5 @@
     <string name="me">Me</string>
     <string name="home">Home</string>
     <string name="can_not_find_any_aps">Sorry, it seems no any Access Points nearby</string>
+    <string name="channel_short_name">CH</string>
 </resources>

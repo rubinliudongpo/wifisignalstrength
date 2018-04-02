@@ -9,6 +9,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.Display;
+
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.CrashUtils;
@@ -17,6 +20,7 @@ import com.blankj.utilcode.util.Utils;
 import com.facebook.stetho.Stetho;
 import com.hugo.watcher.Watcher;
 import com.blankj.utilcode.util.NetworkUtils;
+import cn.liudp.wifisignalstrength.R;
 import com.squareup.leakcanary.LeakCanary;
 import cn.liudp.wifisignalstrength.base.BaseApplication;
 
@@ -40,6 +44,26 @@ public class MyApplication extends BaseApplication {
 
     public static void setApplication(MyApplication application) {
         MyApplication.mApplication = application;
+    }
+
+    public static int getGridSpanCount(Activity activity) {
+
+        Display display = activity.getWindowManager().getDefaultDisplay();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        display.getMetrics(displayMetrics);
+        float screenWidth  = displayMetrics.widthPixels;
+        float cellWidth = activity.getResources().getDimension(R.dimen.item_size);
+        return Math.round(screenWidth / cellWidth);
+    }
+
+    public static int getStickersGridSpanCount(Activity activity) {
+
+        Display display = activity.getWindowManager().getDefaultDisplay();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        display.getMetrics(displayMetrics);
+        float screenWidth  = displayMetrics.widthPixels;
+        float cellWidth = activity.getResources().getDimension(R.dimen.sticker_item_size);
+        return Math.round(screenWidth / cellWidth);
     }
 
     @Override
