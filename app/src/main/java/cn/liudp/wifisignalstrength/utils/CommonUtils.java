@@ -3,6 +3,7 @@ package cn.liudp.wifisignalstrength.utils;
 import android.Manifest;
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.Application;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.ComponentName;
@@ -45,7 +46,7 @@ import com.blankj.utilcode.util.Utils;
  * @author dongpoliu on 2018-03-28.
  */
 
-public class CommonUtils {
+public class CommonUtils extends Application {
 
     /**
      * 打开应用具体设置
