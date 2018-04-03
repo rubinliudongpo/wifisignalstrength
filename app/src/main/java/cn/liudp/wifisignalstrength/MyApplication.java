@@ -23,8 +23,7 @@ import com.blankj.utilcode.util.NetworkUtils;
 import cn.liudp.wifisignalstrength.R;
 import com.squareup.leakcanary.LeakCanary;
 import cn.liudp.wifisignalstrength.base.BaseApplication;
-
-//import im.fir.sdk.FIR;
+import im.fir.sdk.FIR;
 
 /**
  * @author dongpoliu on 2018-03-15.
@@ -76,7 +75,7 @@ public class MyApplication extends BaseApplication {
         initCrash();
         if (!BuildConfig.DEBUG) {
             // App crash analysis and auto-detect upgrading
-//            FIR.init(this);
+            FIR.init(this);
         } else {
             // watch the fps and used memory of the app.
             Watcher.getInstance().start(this);
