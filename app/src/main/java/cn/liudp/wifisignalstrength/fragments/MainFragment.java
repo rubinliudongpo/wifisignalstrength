@@ -1,10 +1,13 @@
 package cn.liudp.wifisignalstrength.fragments;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,6 +16,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
@@ -66,44 +71,57 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @Override
     protected void initEventAndData(View mView) {
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission_group.LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), permissions, 1);
-        }
-        accessPointAdapter = new AccessPointAdapter();
         accessPointsList = new ArrayList<>();
-        mRecyclerView.setAdapter(accessPointAdapter);
-        rxWiFiScanResultSubscription = RxWiFi.observeWiFiAccessPoints(getContext())
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Consumer<List<ScanResult>>() {
-                @Override
-                public void accept(List<ScanResult> scanResults) throws Exception {
-                    AccessPoint accessPoint = new AccessPoint();
-                    for (ScanResult scanResult:scanResults) {
-                        accessPoint.setSsid(scanResult.SSID);
-                        accessPoint.setRssi(scanResult.level);
-                        accessPoint.setFrequency(scanResult.frequency);
-                        accessPoint.setCapabilities(scanResult.capabilities);
-                        System.out.println(TAG + " " + accessPoint.getSsid());
-                        accessPointsList.add(accessPoint);
-                    }
-                    accessPointAdapter.setList(accessPointsList);
-                    displayAccessPoints(accessPointAdapter);
-                }
-         });
-    }
-
-    private void displayAccessPoints(AccessPointAdapter accessPointAdapter) {
-        final LinearLayoutManager mLayoutManager = new GridLayoutManager(getActivity(), MyApplication.getGridSpanCount(getActivity()));
+        accessPointAdapter = new AccessPointAdapter();
+        accessPointAdapter.setList(accessPointsList);
+        final LinearLayoutManager mLayoutManager = new GridLayoutManager(getActivity(),1);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(accessPointAdapter);
-//        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrolled(RecyclerView recyclerView, int dx, int dy){
-//            }
-//        });
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0) {
+//                    visibleItemCount = mLayoutManager.getChildCount();
+//                    totalItemCount = mLayoutManager.getItemCount();
+//                    pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
+//                    if (!loadingMore) {
+//                        if ((visibleItemCount + pastVisiblesItems) >= totalItemCount && (viewMore) && !(mItemsContainer.isRefreshing())) {
+//                            loadingMore = true;
+
+//                        }
+//                    }
+                }
+            }
+        });
+        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                AccessPoint accessPoint = (AccessPoint) accessPointsList.get(position);
+//                Intent intent = new Intent(getActivity(), AccessPointActivity.class);
+//                intent.putExtra("accessPointId", accessPoint.getSsid());
+//                startActivity(intent);
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+                // ...
+            }
+        }));
+        mRefreshLayout.setRefreshing(false);
+    }
+
+    private void displayAccessPoints(List<ScanResult> scanResults) {
+        for (ScanResult scanResult : scanResults) {
+            AccessPoint accessPoint = new AccessPoint();
+            accessPoint.setSsid(scanResult.SSID);
+            accessPoint.setRssi(scanResult.level);
+            accessPoint.setFrequency(scanResult.frequency);
+            accessPoint.setCapabilities(scanResult.capabilities);
+            System.out.println(TAG + " " + accessPoint.getSsid());
+            accessPointsList.add(accessPoint);
+        }
     }
 
     @Override
@@ -118,8 +136,16 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     }
 
     @Override
-    public void onResume() {
+    public void onResume () {
         super.onResume();
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission_group.LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), permissions, 1);
+        }
+        mRefreshLayout.setOnRefreshListener(this);
+        rxWiFiScanResultSubscription = RxWiFi.observeWiFiAccessPoints(getContext())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::displayAccessPoints);
         startWifiAccessPointsSubscription();
     }
 
@@ -144,5 +170,48 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     public void hideMessage() {
 //        mMessage.setVisibility(View.GONE);
+    }
+
+    static class RecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
+        public interface OnItemClickListener {
+            void onItemClick(View view, int position);
+            void onItemLongClick(View view, int position);
+        }
+        private OnItemClickListener mListener;
+        private GestureDetector mGestureDetector;
+        public RecyclerItemClickListener(Context context, final RecyclerView recyclerView, RecyclerItemClickListener.OnItemClickListener listener) {
+            mListener = listener;
+            mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                   return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View childView = recyclerView.findChildViewUnder(e.getX(), e.getY());
+                    if (childView != null && mListener != null) {
+                        mListener.onItemLongClick(childView, recyclerView.getChildAdapterPosition(childView));
+                    }
+                }
+            });
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView view, MotionEvent e) {
+            View childView = view.findChildViewUnder(e.getX(), e.getY());
+            if (childView != null && mListener != null && mGestureDetector.onTouchEvent(e)) {
+                mListener.onItemClick(childView, view.getChildAdapterPosition(childView));
+            }
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView view, MotionEvent motionEvent) {
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+        }
     }
 }
