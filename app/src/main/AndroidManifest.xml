@@ -28,7 +28,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
         <activity
-            android:theme="@style/SplashTheme"
+            android:theme="@style/SplashActivityTheme"
             android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,7 +43,7 @@
         <activity
             android:name=".activities.GuideActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme_Guide">
+            android:theme="@style/GuideActivityTheme">
         </activity>
     </application>
 </manifest>
