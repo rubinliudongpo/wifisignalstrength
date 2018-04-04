@@ -7,10 +7,9 @@ android {
         minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
-        versionName "1.0"
+        versionName "0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "FirToken", "\"0588e07db3cdb230046479c220517248\""
-
     }
 //    signingConfigs {
 //        debug {
@@ -48,6 +47,13 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
         sourceCompatibility JavaVersion.VERSION_1_8
     }
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def newApkName = "WiFiHelper_v${defaultConfig.versionName}_" + new Date().format('yyyyMMdd') + "_release.apk"
+            outputFileName = newApkName;
+        }
+    }
+
 }
 
 dependencies {
