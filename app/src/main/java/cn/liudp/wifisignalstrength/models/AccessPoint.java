@@ -35,7 +35,7 @@ public class AccessPoint extends Application implements Parcelable {
     }
 
     public String getSsid() {
-        return ssid;
+        return this.ssid;
     }
 
     public void setSsid(String ssid) {
@@ -43,7 +43,7 @@ public class AccessPoint extends Application implements Parcelable {
     }
 
     public int getRssi() {
-        return rssi;
+        return this.rssi;
     }
 
     public void setRssi(int rssi) {
@@ -51,7 +51,7 @@ public class AccessPoint extends Application implements Parcelable {
     }
 
     public String getCapabilities() {
-        return capabilities;
+        return this.capabilities;
     }
 
     public void setCapabilities(String capabilities) {
@@ -59,7 +59,7 @@ public class AccessPoint extends Application implements Parcelable {
     }
 
     public int getFrequency() {
-        return frequency;
+        return this.frequency;
     }
 
     public void setFrequency(int frequency) {

@@ -71,8 +71,8 @@ public class MyApplication extends BaseApplication {
         mAppName = this.getPackageManager().getNameForUid(Binder.getCallingUid());
         mApplication = this;
         Utils.init(this);
-        initLog();
-        initCrash();
+//        initLog();
+//        initCrash();
         if (!BuildConfig.DEBUG) {
             // App crash analysis and auto-detect upgrading
             FIR.init(this);
