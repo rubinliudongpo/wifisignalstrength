@@ -9,7 +9,5 @@
 ## Home
 ![](https://github.com/rubinliudongpo/wifisignalstrength/blob/master/screenshots/MainFragment.jpg)
 
-## About
-![](https://github.com/rubinliudongpo/wifisignalstrength/blob/master/screenshots/AboutFragment.jpg)
 
 
