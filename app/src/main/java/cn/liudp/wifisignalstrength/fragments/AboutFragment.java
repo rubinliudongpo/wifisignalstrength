@@ -1,7 +1,6 @@
 package cn.liudp.wifisignalstrength.fragments;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -11,6 +10,9 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+
+import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
+
 import butterknife.BindView;
 import cn.liudp.wifisignalstrength.R;
 import cn.liudp.wifisignalstrength.base.BaseFragment;
@@ -28,6 +30,8 @@ public class AboutFragment extends BaseFragment implements SwipeRefreshLayout.On
 
 //    @BindView(R.id.swipe_refresh)
 //    SwipeRefreshLayout mRefreshLayout;
+    @BindView(R.id.title_bar)
+    CommonTitleBar titleBar;
     @BindView(R.id.web_appbar)
     AppBarLayout mWebAppbar;
     @BindView(R.id.web_progress_bar)
@@ -46,6 +50,14 @@ public class AboutFragment extends BaseFragment implements SwipeRefreshLayout.On
 
     @Override
     protected void initEventAndData(View mView) {
+        titleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
+            @Override
+            public void onClicked(View v, int action, String extra) {
+                if (action == CommonTitleBar.ACTION_LEFT_BUTTON || action == CommonTitleBar.ACTION_LEFT_TEXT) {
+//                    onBackPressed();
+                }
+            }
+        });
         mWebPresenter = new WebPresenter(this);
         mWebPresenter.subscribe();
         initWebView();

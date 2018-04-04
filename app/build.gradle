@@ -83,7 +83,9 @@ dependencies {
     implementation 'cn.bingoogolapple:bga-banner:2.2.4@aar'
     //bottom bar
     implementation 'com.yinglan.alphatabs:library:1.0.8'
-    // LeakCanary
+    //LeakCanary
     debugImplementation "com.squareup.leakcanary:leakcanary-android:1.5.4"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:1.5.4"
+    //ActionBar
+    implementation 'com.wuhenzhizao:titlebar:1.0.7'
 }

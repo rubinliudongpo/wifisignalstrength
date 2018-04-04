@@ -2,12 +2,9 @@ package cn.liudp.wifisignalstrength.fragments;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.wifi.ScanResult;
-import android.net.wifi.WifiInfo;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -15,17 +12,16 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ArrayAdapter;
+
+import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import cn.liudp.wifisignalstrength.MyApplication;
 import cn.liudp.wifisignalstrength.R;
 import cn.liudp.wifisignalstrength.adapters.AccessPointAdapter;
 import cn.liudp.wifisignalstrength.base.BaseFragment;
@@ -33,7 +29,6 @@ import cn.liudp.wifisignalstrength.models.AccessPoint;
 import cn.liudp.wifisignalstrength.modules.wifi.RxWiFi;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -48,6 +43,8 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     RecyclerView mRecyclerView;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout mRefreshLayout;
+    @BindView(R.id.title_bar)
+    CommonTitleBar titleBar;
 //    @BindView(R.id.message)
 //    TextView mMessage;
 //    private Context mContext;
@@ -71,6 +68,14 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @Override
     protected void initEventAndData(View mView) {
+        titleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
+            @Override
+            public void onClicked(View v, int action, String extra) {
+                if (action == CommonTitleBar.ACTION_LEFT_BUTTON || action == CommonTitleBar.ACTION_LEFT_TEXT) {
+//                    onBackPressed();
+                }
+            }
+        });
         accessPointsList = new ArrayList<>();
         accessPointAdapter = new AccessPointAdapter();
         accessPointAdapter.setList(accessPointsList);
