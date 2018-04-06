@@ -86,7 +86,13 @@ public class AccessPointAdapter extends RecyclerView.Adapter<AccessPointAdapter.
     }
 
     public void setList(List<AccessPoint> accessPointList) {
+
         this.mAccessPointList = accessPointList;
+        int startPosition = 0;
+        int preSize = getItemCount();
+        if(preSize > 0) {
+            notifyItemRangeRemoved(startPosition, preSize);
+        }
         notifyDataSetChanged();
     }
 

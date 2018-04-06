@@ -19,6 +19,7 @@ import android.view.View;
 import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -103,7 +104,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                AccessPoint accessPoint = (AccessPoint) accessPointsList.get(position);
+//                AccessPoint accessPoint = (AccessPoint) accessPointsList.get(position);
 //                Intent intent = new Intent(getActivity(), AccessPointActivity.class);
 //                intent.putExtra("accessPointId", accessPoint.getSsid());
 //                startActivity(intent);
@@ -118,6 +119,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     }
 
     private void displayAccessPoints(List<ScanResult> scanResults) {
+        accessPointsList.clear();
         for (ScanResult scanResult : scanResults) {
             AccessPoint accessPoint = new AccessPoint();
             accessPoint.setSsid(scanResult.SSID);
@@ -147,6 +149,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             ActivityCompat.requestPermissions(getActivity(), permissions, 1);
         }
         mRefreshLayout.setOnRefreshListener(this);
+        accessPointsList = new ArrayList<>();
         rxWiFiScanResultSubscription = RxWiFi.observeWiFiAccessPoints(getContext())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -163,7 +166,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         mRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
-                mRefreshLayout.setRefreshing(false);
+                mRefreshLayout.setRefreshing(true);
             }
         });
     }
