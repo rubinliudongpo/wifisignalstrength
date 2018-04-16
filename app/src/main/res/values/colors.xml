@@ -16,4 +16,8 @@
     <color name="channel_number">#00BCD4</color>
     <color name="frequency">#0097A7</color>
     <color name="distance">#009688</color>
+    <color name="error_color">#F44336</color>
+    <color name="warning_color">#FFC107</color>
+    <color name="success_color">#4CAF50</color>
+    <color name="icons_color">#9E9E9E</color>
 </resources>

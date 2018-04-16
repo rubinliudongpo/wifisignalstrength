@@ -1,6 +1,7 @@
 package cn.liudp.wifisignalstrength.adapters;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +14,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.liudp.wifisignalstrength.R;
 import cn.liudp.wifisignalstrength.models.AccessPoint;
+import cn.liudp.wifisignalstrength.models.SignalStrength;
+import cn.liudp.wifisignalstrength.utils.WiFiUtils;
 
 /**
  * @author dongpoliu on 2018-03-19.
@@ -20,6 +23,7 @@ import cn.liudp.wifisignalstrength.models.AccessPoint;
 
 public class AccessPointAdapter extends RecyclerView.Adapter<AccessPointAdapter.MyViewHolder> {
 
+    public final static String TAG = AccessPointAdapter.class.getSimpleName();
     private Context mContext;
     private List<AccessPoint> mAccessPointList;
     private OnRecyclerViewItemClickListener mOnItemClickListener = null;
@@ -32,8 +36,8 @@ public class AccessPointAdapter extends RecyclerView.Adapter<AccessPointAdapter.
         TextView mItemSsid;
         @BindView(R.id.item_signal_level)
         TextView mItemSignalLevel;
-//        @BindView(R.id.item_signal_level_image)
-//        ImageView mItemSignalLevelImage;
+        @BindView(R.id.item_signal_level_image)
+        ImageView mItemSignalLevelImage;
 //        @BindView(R.id.item_channel)
 //        TextView mItemChannel;
         @BindView(R.id.item_primary_frequency)
@@ -65,8 +69,8 @@ public class AccessPointAdapter extends RecyclerView.Adapter<AccessPointAdapter.
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        View view = LayoutInflater.from(context).inflate(R.layout.item_accesspoint, parent, false);
+        mContext = parent.getContext();
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_accesspoint, parent, false);
         return new MyViewHolder(view);
     }
 
@@ -78,6 +82,10 @@ public class AccessPointAdapter extends RecyclerView.Adapter<AccessPointAdapter.
         holder.mItemSignalLevel.setText(String.valueOf(accessPoint.getRssi()));
         holder.mItemPrimaryFrequency.setText(String.valueOf(accessPoint.getFrequency()));
         holder.mCardView.setOnClickListener(v -> mOnItemClickListener.onItemClick(v, position));
+        int index = WiFiUtils.calculateSignalLevel(accessPoint.getRssi(), 5);
+        SignalStrength signalStrength = SignalStrength.values()[index];
+        holder.mItemSignalLevelImage.setImageResource(signalStrength.imageResource());
+        holder.mItemSignalLevelImage.setColorFilter(ContextCompat.getColor(mContext, signalStrength.colorResource()));
     }
 
     @Override

@@ -126,7 +126,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             accessPoint.setRssi(scanResult.level);
             accessPoint.setFrequency(scanResult.frequency);
             accessPoint.setCapabilities(scanResult.capabilities);
-            System.out.println(TAG + " " + accessPoint.getSsid());
+            System.out.println(TAG + " " + accessPoint.getSsid() + " RSSI is " +  accessPoint.getRssi());
             accessPointsList.add(accessPoint);
         }
     }
