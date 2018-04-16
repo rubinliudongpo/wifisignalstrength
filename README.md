@@ -7,7 +7,7 @@ Fir.im: http://fir.im/yzsm
 ![](https://github.com/rubinliudongpo/wifisignalstrength/blob/master/screenshots/GuideActivity.jpg)
 
 ## Home
-![](https://github.com/rubinliudongpo/wifisignalstrength/blob/master/screenshots/MainFragment.jpg)
+![](https://github.com/rubinliudongpo/wifisignalstrength/blob/master/screenshots/MainFragment.jpeg)
 
 
 
